@@ -12,7 +12,7 @@ const Navbar = () => {
                             <div>
                                 <Image src="/logo.png" alt="Logo" width={90} height={90} />
                             </div>
-                            <span className='text-2xl font-bold uppercase tracking-tight text-primary-700 pb-1.5 pl-1'>Book Library</span>
+                            <span className='text-2xl font-bold uppercase tracking-tight text-primary-700 pb-1.5 pl-1'>Digital Library</span>
                         </div>
                     </Link>
                 </div >
