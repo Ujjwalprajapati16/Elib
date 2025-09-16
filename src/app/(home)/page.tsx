@@ -1,4 +1,4 @@
-import Banner from "@/components/Banner.tsx";
+import Banner from "./components/Banner.tsx";
 
 export default function Home() {
   return (
