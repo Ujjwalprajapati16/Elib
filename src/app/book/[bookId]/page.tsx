@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import ReadNowButton from './components/ReadNowButton.tsx';
 
 const page = async ({ params }: { params: { bookId: string } }) => {
     let book;
@@ -23,6 +24,7 @@ const page = async ({ params }: { params: { bookId: string } }) => {
                 <h2 className='mb-5 text-5xl font-bold leading-[1.1]'>{book.title}</h2>
                 <span className='font-semibold'>by {book.author.name}</span>
                 <p className='mt-5 text-lg leading-5'>{book.description}</p>
+                <ReadNowButton filelink={book.file} />
             </div>
             <div className="flex justify-end">
                 <Image
