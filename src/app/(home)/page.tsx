@@ -2,89 +2,13 @@
 
 import Banner from "./components/Banner";
 import BookList from "./components/BookList";
-import { useEffect, useState, useRef } from "react";
-import { Book } from "@/types";
-import Image from "next/image";
-import BookLoader from "@/components/BookLoader.tsx";
 
 export default function Home() {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  const loaderRef = useRef<HTMLDivElement>(null);
-
-  const fetchBooks = async (pageNumber = 1) => {
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}books?page=${pageNumber}&limit=6`
-      );
-      const data = await res.json();
-
-      // Append new books
-      setBooks((prev) => [...prev, ...data.books]);
-      setTotalPages(data.pagination.totalPages);
-    } catch (err) {
-      console.error("Failed to fetch books:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch first page
-  useEffect(() => {
-    fetchBooks(page);
-  }, []);
-
-  // Infinite scroll observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && page < totalPages) {
-          setPage((prev) => prev + 1);
-        }
-      },
-      { rootMargin: "200px" } // fetch a bit before reaching bottom
-    );
-
-    if (loaderRef.current) observer.observe(loaderRef.current);
-
-    return () => {
-      if (loaderRef.current) observer.unobserve(loaderRef.current);
-    };
-  }, [page, totalPages]);
-
-  // Fetch new page when `page` state changes
-  useEffect(() => {
-    if (page > 1) fetchBooks(page);
-  }, [page]);
-
   return (
     <>
       <Banner />
       <main className="py-10 px-5 max-w-7xl mx-auto">
-        <BookList books={books} />
-
-        {/* Loader div */}
-        <div ref={loaderRef} className="text-center py-4">
-          {loading && <BookLoader />}
-
-          {page >= totalPages && (
-            <div className="relative mx-auto w-full max-w-3xl aspect-[16/9]">
-              <Image
-                src="/book_reading.svg"
-                alt="No more books"
-                fill
-                className="object-contain"
-              />
-            </div>
-          )}
-        </div>
-
+        <BookList />
       </main>
     </>
   );

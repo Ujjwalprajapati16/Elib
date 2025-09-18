@@ -5,7 +5,7 @@ import React from 'react'
 
 const BookCard = ({ book }: { book: Book }) => {
     return (
-        <div className="group flex items-start gap-5 rounded-xl border shadow-md bg-white hover:shadow-lg transition-all overflow-hidden p-4 w-full">
+        <div className="group flex items-start gap-5 rounded-xl border border-primary-200 shadow-md bg-white hover:shadow-lg transition-all overflow-hidden p-4 w-full">
             {/* Book Cover */}
             <div className="relative h-40 w-28 flex-shrink-0 overflow-hidden rounded-md">
                 <Image
