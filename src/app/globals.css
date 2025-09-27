@@ -26,3 +26,12 @@
     --color-background-light: #F9FAFB;
     --color-background-dark: #111827;
 }
+
+/* Hide scrollbar globally */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

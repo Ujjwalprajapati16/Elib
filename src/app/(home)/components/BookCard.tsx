@@ -27,7 +27,7 @@ const BookCard = ({ book }: { book: Book }) => {
 
                 {/* CTA */}
                 <Link
-                    href={`/books/${book._id}`}
+                    href={`/book/${book._id}`}
                     className="mt-3 inline-block text-center rounded-lg border border-primary-600 text-primary-600 px-4 py-2 text-sm font-medium hover:bg-primary-50 transition self-start"
                 >
                     Read More

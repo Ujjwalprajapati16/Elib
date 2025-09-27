@@ -1,43 +1,37 @@
-import Image from 'next/image'
-import React from 'react'
-import ReadNowButton from './components/ReadNowButton.tsx';
+import React from "react";
+import BookDetails from "./components/BookDetails.tsx";
+import AddRatingForm from "./components/AddRatingForm.tsx";
+import RatingsList from "./components/RatingsList.tsx";
+import BookImage from "./components/BookImage.tsx";
 
-const page = async ({ params }: { params: { bookId: string } }) => {
-    let book;
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}books/${params.bookId}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch book details');
-        }
-        book = await response.json();
-    } catch (error) {
-        throw new Error('Error fetching book details');
-    }
 
-    if (!book) {
-        throw new Error('Book not found');
-    }
+const BookPage = async ({ params }: { params: { bookId: string } }) => {
+  let data;
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}books/${params.bookId}`,
+      { cache: "no-store" }
+    );
+    if (!response.ok) throw new Error("Failed to fetch book details");
+    data = await response.json();
+  } catch (error) {
+    return <div className="text-center text-red-500">Error fetching book details</div>;
+  }
 
-    return (
-        <div className='mx-auto grid max-w-6xl grid-cols-3 gap-10 px-5 py-10'>
-            <div className="col-span-2 pr-16 text-primary-950">
-                <h2 className='mb-5 text-5xl font-bold leading-[1.1]'>{book.title}</h2>
-                <span className='font-semibold'>by {book.author.name}</span>
-                <p className='mt-5 text-lg leading-5'>{book.description}</p>
-                <ReadNowButton filelink={book.file} />
-            </div>
-            <div className="flex justify-end">
-                <Image
-                    src={book.coverImage}
-                    alt={book.title}
-                    width={0}
-                    height={0}
-                    sizes='100vw'
-                    style={{ width: 'auto', height: 'auto' }}
-                />
-            </div>
-        </div>
-    )
-}
+  if (!data?.book) {
+    return <div className="text-center text-red-500">Book not found</div>;
+  }
 
-export default page
+  return (
+    <div className="mx-auto flex max-w-6xl gap-10 px-5 py-10">
+      <BookImage coverImage={data.book.coverImage} title={data.book.title} />
+      <div className="flex-1 flex flex-col gap-8 overflow-y-auto max-h-[90vh] pr-4 scroll-smooth scrollbar-hide">
+        <BookDetails book={data.book} />
+        <AddRatingForm bookId={data.book._id} />
+        <RatingsList ratings={data.ratings} />
+      </div>
+    </div>
+  );
+};
+
+export default BookPage;

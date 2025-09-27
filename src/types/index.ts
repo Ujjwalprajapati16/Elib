@@ -11,3 +11,11 @@ export type Book = {
 export type Author = {
     name: string;
 }
+
+export type Rating = {
+    user: {
+        name: string;
+    }
+    rating: number;
+    comment: string;
+}
