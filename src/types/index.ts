@@ -19,3 +19,11 @@ export type Rating = {
     rating: number;
     comment: string;
 }
+
+export type User = {
+    id: string;
+    username: string;
+    email: string;
+    role: string;
+    password: string;
+}
