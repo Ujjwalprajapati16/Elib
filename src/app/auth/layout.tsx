@@ -5,9 +5,12 @@ import { BackgroundBeamsWithCollision } from "@/components/ui/shadcn-io/backgrou
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-zinc-950 text-foreground overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center bg-primary-100 text-foreground overflow-hidden px-4 py-8">
+      {/* Background animation */}
       <BackgroundBeamsWithCollision className="absolute inset-0 pointer-events-none" />
-      <div className="relative z-20 w-full max-w-md p-8 bg-background/60 backdrop-blur rounded-2xl border">
+
+      {/* Centered card */}
+      <div className="relative z-20 w-full max-w-lg p-8 bg-background/60 backdrop-blur-lg rounded-2xl border  shadow-lg overflow-auto">
         {children}
       </div>
     </div>

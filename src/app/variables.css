@@ -1,0 +1,26 @@
+:root {
+  --primary: #4F46E5;
+  --primary-foreground: #ffffff;
+  --secondary: #F97316;
+  --secondary-foreground: #ffffff;
+  --background: #F9FAFB;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --input: #e5e7eb;
+  --border: #d1d5db;
+  --ring: #6366f1;
+}
+.dark {
+  --background: #111827;
+  --foreground: #F9FAFB;
+  --card: #1f2937;
+  --card-foreground: #F9FAFB;
+  --primary: #6366F1;
+  --primary-foreground: #ffffff;
+  --secondary: #FB923C;
+  --secondary-foreground: #ffffff;
+  --input: #374151;
+  --border: #4B5563;
+  --ring: #818CF8;
+}
