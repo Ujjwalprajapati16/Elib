@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
       {/* Centered card */}
       <div className="relative z-20 w-full max-w-lg p-8 bg-background/60 backdrop-blur-lg rounded-2xl border  shadow-lg overflow-auto">
-        {children}
+          {children}
       </div>
     </div>
   );

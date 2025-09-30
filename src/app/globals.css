@@ -111,8 +111,8 @@
     --primary-700: #3730A3;
     --primary-800: #312E81;
     --primary-900: #23215C;
-    --primary: oklch(0.21 0.006 285.885);
-    --primary-foreground: oklch(0.985 0 0);
+    --primary: #4F46E5;
+    --primary-foreground: #E0E7FF;
 
     /* Secondary Colors (your palette) */
     --secondary-50: #FFF7ED;

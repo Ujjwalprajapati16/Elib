@@ -1,20 +1,22 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth"; // Axios hook
+import { toast } from "sonner";
+import { useState } from "react";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z
     .string()
-    .min(8, "Password must be at least 8 characters long")
-    .max(16, "Password must be less than 16 characters"),
+    .min(8, "Password must be at least 8 characters")
+    .max(16, "Password too long"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -22,23 +24,39 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
-    // Handle login logic here
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (data: LoginFormData) => {
+    setLoading(true);
+    try {
+      const res = await login({ email: data.email, password: data.password });
+
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+
+      toast.success("Login successful!");
+      if (res.user.role === "author") {
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/";
+      }
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || err.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Card className="w-full max-w-md p-8">
-      <h2 className="text-2xl font-bold text-center mb-6">Login to Your Account</h2>
+    <Card className="w-full max-w-md p-8 bg-background/80 backdrop-blur-md rounded-xl shadow-md">
+      <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {/* Email */}
+          {/* Email Field */}
           <FormField
             control={form.control}
             name="email"
@@ -51,7 +69,7 @@ export default function LoginPage() {
             )}
           />
 
-          {/* Password */}
+          {/* Password Field */}
           <FormField
             control={form.control}
             name="password"
@@ -65,8 +83,8 @@ export default function LoginPage() {
           />
 
           {/* Submit Button */}
-          <Button type="submit" className="w-full mt-4">
-            Login
+          <Button type="submit" className="w-full mt-4" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </Button>
         </form>
       </Form>

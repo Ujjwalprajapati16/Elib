@@ -22,8 +22,23 @@ export type Rating = {
 
 export type User = {
     id: string;
-    username: string;
+    name: string;
     email: string;
     role: string;
     password: string;
 }
+
+export type ApiError = {
+  message: string;
+  code?: string;
+};
+
+export type AuthResponse = {
+  token: string;
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    role: string;
+  };
+};
