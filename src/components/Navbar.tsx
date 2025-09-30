@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ModeToggle } from "./Theme-switch.tsx";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +68,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex gap-2">
+            <ModeToggle />
             {!user ? (
               <>
                 <Link href="/auth/login">

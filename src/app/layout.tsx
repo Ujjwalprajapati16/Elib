@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer.tsx";
 import { Toaster } from "sonner";
 import ClientNavbar from "./ClientNavbar.tsx";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,24 +32,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ClientNavbar />
-        <Toaster
-          position="top-right"
-          richColors
-          closeButton
-          duration={4000}
-          toastOptions={{
-            className:
-              "backdrop-blur-lg bg-white/80 dark:bg-zinc-900/80 text-zinc-800 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 shadow-xl rounded-2xl",
-          }}
-        />
-        {children}
-        <Footer />
-
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ClientNavbar />
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            duration={4000}
+            toastOptions={{
+              className:
+                "backdrop-blur-lg bg-white/80 dark:bg-zinc-900/80 text-zinc-800 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 shadow-xl rounded-2xl",
+            }}
+          />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
