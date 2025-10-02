@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import type { AxiosError } from "axios";
 import type { ApiError } from "@/types";
+import Link from "next/link";
 
 const signUpSchema = z.object({
   name: z.string().min(3, "name must be at least 3 characters long"),
@@ -51,7 +52,7 @@ export default function SignUpPage() {
       localStorage.setItem("user", JSON.stringify(res.user));
 
       toast.success("Signup successful!");
-      if(res.user.role === "author") {
+      if (res.user.role === "author") {
         window.location.href = "/dashboard";
       } else {
         window.location.href = "/";
@@ -140,6 +141,9 @@ export default function SignUpPage() {
           </Button>
         </form>
       </Form>
+      <Link href="/auth/login" className="mt-2 block text-center">
+        Already have an account? <span className="underline text-primary-500">Login</span>
+      </Link>
     </Card>
   );
 }

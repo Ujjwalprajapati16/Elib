@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth"; // Axios hook
 import { toast } from "sonner";
 import { useState } from "react";
+import Link from "next/link";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -88,6 +89,9 @@ export default function LoginPage() {
           </Button>
         </form>
       </Form>
+      <Link href="/auth/signup" className="mt-4 block text-center text-sm text-muted-foreground">
+        Don&apos;t have an account? <span className="underline text-primary-400">Sign up</span>
+      </Link>
     </Card>
   );
 }
