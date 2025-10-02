@@ -13,7 +13,9 @@ export function useAuth() {
         password: data.password,
       });
 
-      localStorage.setItem("token", res.data.token);
+      console.log(res.data);
+
+      localStorage.setItem("token", res.data.accessToken);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       toast.success("Login successful!");
@@ -42,7 +44,7 @@ export function useAuth() {
         role: data.role,
       });
 
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", res.data.accessToken);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       toast.success("Signup successful!");

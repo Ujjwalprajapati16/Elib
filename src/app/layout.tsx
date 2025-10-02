@@ -33,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -54,7 +52,7 @@ export default function RootLayout({
             }}
           />
           {children}
-          <Footer />
+          <Footer className="bg-background dark:bg-zinc-900 text-foreground dark:text-zinc-100" />
         </ThemeProvider>
       </body>
     </html>

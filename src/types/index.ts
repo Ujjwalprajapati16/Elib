@@ -6,6 +6,7 @@ export type Book = {
     file: string;
     author: Author;
     genre: string;
+    views: number;
 }
 
 export type Author = {
@@ -34,7 +35,7 @@ export type ApiError = {
 };
 
 export type AuthResponse = {
-  token: string;
+  accessToken: string;
   user: {
     id: string;
     username: string;

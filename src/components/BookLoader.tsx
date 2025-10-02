@@ -1,16 +1,24 @@
-import React from 'react'
+"use client";
 
-const BookLoader = () => {
-    return (
-        <div className="flex justify-center items-center py-10">
-            <div className="flex space-x-2 animate-bounce">
-                {/* Represent three books bouncing */}
-                <div className="w-6 h-10 bg-primary-600 rounded-sm shadow-md"></div>
-                <div className="w-6 h-12 bg-primary-500 rounded-sm shadow-md"></div>
-                <div className="w-6 h-14 bg-primary-400 rounded-sm shadow-md"></div>
-            </div>
+import React from "react";
+
+const BookSkeletonLoader = () => {
+  return (
+    <div className="flex justify-center items-center py-10 space-x-4">
+      {/* Skeleton stack of 3 books */}
+      {[1, 2, 3].map((i) => (
+        <div
+          key={i}
+          className={`w-6 ${
+            8 + i * 2
+          } h-${8 + i * 2} relative rounded-sm overflow-hidden shadow-md`}
+        >
+          {/* Skeleton shimmer */}
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-300/70 via-gray-200/60 to-gray-300/70 dark:from-zinc-700/70 dark:via-zinc-600/60 dark:to-zinc-700/70 animate-skeleton"></div>
         </div>
-    )
-}
+      ))}
+    </div>
+  );
+};
 
-export default BookLoader;
+export default BookSkeletonLoader;

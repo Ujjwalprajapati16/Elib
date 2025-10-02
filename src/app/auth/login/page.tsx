@@ -35,7 +35,7 @@ export default function LoginPage() {
     try {
       const res = await login({ email: data.email, password: data.password });
 
-      localStorage.setItem("token", res.token);
+      localStorage.setItem("token", res.accessToken);
       localStorage.setItem("user", JSON.stringify(res.user));
 
       toast.success("Login successful!");
