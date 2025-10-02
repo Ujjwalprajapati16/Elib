@@ -1,13 +1,40 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider"; 
 import { Toaster } from "sonner";
+import BookSkeletonLoader from "@/components/BookLoader.tsx";
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {       
+export default function DashboardLayout({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const [isAuthor, setIsAuthor] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.role === "author") {
+        setIsAuthor(true);
+      } else {
+        router.replace("/"); // redirect if not author
+      }
+    } else {
+      router.replace("/auth/login"); // redirect if no user
+    }
+
+    setLoading(false);
+  }, [router]);
+
+  if (loading) return <BookSkeletonLoader />;
+
+  if (!isAuthor) return null; // Just in case
+
   return (
     <html lang="en" suppressHydrationWarning> 
       <body className="antialiased">
