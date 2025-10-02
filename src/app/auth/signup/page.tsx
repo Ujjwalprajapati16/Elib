@@ -51,7 +51,11 @@ export default function SignUpPage() {
       localStorage.setItem("user", JSON.stringify(res.user));
 
       toast.success("Signup successful!");
-      window.location.href = "/";
+      if(res.user.role === "author") {
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/";
+      }
     } catch (error) {
       const err = error as AxiosError<ApiError>;
       const message =
