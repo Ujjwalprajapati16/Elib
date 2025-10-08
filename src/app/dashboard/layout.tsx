@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
-import { ThemeProvider } from "@/components/theme-provider"; 
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import BookSkeletonLoader from "@/components/BookLoader.tsx";
 
@@ -16,7 +16,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-
     if (storedUser) {
       const user = JSON.parse(storedUser);
       if (user.role === "author") {
@@ -36,7 +35,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   if (!isAuthor) return null; // Just in case
 
   return (
-    <html lang="en" suppressHydrationWarning> 
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
